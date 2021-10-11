@@ -1,0 +1,19 @@
+ccenade:
+  build: .
+  ports:
+   - "3002:80"
+   - "443:443"
+  volumes:
+   - ./www:/var/www/html
+  links:
+   - db
+
+db:
+  image: mysql:5.7
+  volumes:
+   - /var/lib/mysql
+  environment:
+   - MYSQL_ROOT_PASSWORD=phprs
+   - MYSQL_DATABASE=phprs
+  ports:
+   - '3307:3306'
