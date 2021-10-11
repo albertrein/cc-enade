@@ -52,7 +52,7 @@ class Usuarios extends MySqlConnection{
 	}
 
 	function atualizaPontuacaoUsuario($emailUsuario){
-		$sql = "UPDATE usuarios SET pontuacao=pontuacao+1 WHERE email='".$emailUsuario."'";
+		$sql = "UPDATE usuarios SET pontuacao=pontuacao+1 WHERE email='".$emailUsuario."' AND isprofessor != 1";
 		$this->conn->query($sql);
 	}
 }
