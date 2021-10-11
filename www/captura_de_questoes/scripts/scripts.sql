@@ -1,13 +1,11 @@
 CREATE TABLE questoes(
 	questaopk INT AUTO_INCREMENT PRIMARY KEY,
-	corpo VARCHAR(255) NOT NULL,
-	imagem VARCHAR(128),
-	alternativa_a VARCHAR (255) NOT NULL,
-	alternativa_b VARCHAR(255) NOT NULL,
-	alternativa_c VARCHAR(255) NOT NULL,
-	alternativa_d VARCHAR(255) NOT NULL,
-	alternativa_e VARCHAR(255) NOT NULL,
-	resposta VARCHAR(20) NOT NULL
+	resposta VARCHAR(20) NOT NULL,
+	ano INT NOT NULL,
+	nrquestao INT NOT NULL,
+	duvida INT(10) DEFAULT 0,
+	acertos INT DEFAULT 0,
+	erros INT DEFAULT 0
 );
 
 ALTER TABLE questoes ADD CONSTRAINT chk_resposta CHECK (resposta IN ('A' , 'B' , 'C' , 'D' , 'E'));

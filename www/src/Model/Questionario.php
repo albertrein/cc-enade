@@ -26,6 +26,24 @@ class Questionario extends MySqlConnection{
 		return false;
 	}
 
+	function atualizaAcertosDaQuestao($dados){
+		$handler = $this->conn->prepare('UPDATE questoes SET acertos = acertos + 1 WHERE ano = ? AND nrquestao = ?');
+		$handler->bind_param('ii', $dados['ano'], $dados['nrquestao']);
+		if(!$handler->execute()){
+			return false;
+		}
+		return $handler->get_result();
+	}
+
+	function atualizaErrosDaQuestao($dados){
+		$handler = $this->conn->prepare('UPDATE questoes SET erros = erros + 1 WHERE ano = ? AND nrquestao = ?');
+		$handler->bind_param('ii', $dados['ano'], $dados['nrquestao']);
+		if(!$handler->execute()){
+			return false;
+		}
+		return $handler->get_result();
+	}
+
 	function buscaQuestao(){
 		$ultimoPk = $this->getUltimoIdInserido();
 		
