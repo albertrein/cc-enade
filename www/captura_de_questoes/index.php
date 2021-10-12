@@ -34,10 +34,24 @@
 
     <div class="container-contact100">
         <div class="wrap-contact100">
-            <form id="formulario" enctype="multipart/form-data" class="contact100-form validate-form" action="/Controller/SalvaPergunta.php" method="POST">
+            <form id="formulario" enctype="multipart/form-data" class="contact100-form validate-form" action="./Controller/SalvaPergunta.php" method="POST">
                 <span class="contact100-form-title">
                     Cadastro Questões Enade
                 </span>
+
+                <div require="true" class="wrap-input100 input100-select bg1" >
+                    <span class="label-input100">Selecione o Curso</span>
+                    <div>
+                        <select class="js-select2" name="curso" id="curso">
+                            <option value="" selected></option>
+                            <option value="questoes">Ciência da computação</option>
+                            <option value="tads">Análise e desenvolvimento de sistemas</option>
+                        </select>
+                        <div class="dropDownSelect2"></div>
+                    </div>
+                </div>
+
+                
 
                 <div class="wrap-input100 validate-input bg1">
                     <span class="label-input100">Imagem Questão</span>
@@ -102,7 +116,7 @@
         if (localStorage.ano !== undefined){
             document.getElementById('ano_prova').value = localStorage.ano;
         }
-
+        
         $(".js-select2").each(function(){
             $(this).select2({
                 minimumResultsForSearch: 20,
@@ -122,8 +136,13 @@
                 });
             });
         })
-     
-    </script>
+        
+        </script>
+        <script>
+            //$('curso').val('tads');
+               /*let elementoCurso = document.getElementById('curso');
+            elementoCurso.value = "tads";*/
+            </script>
 <!--===============================================================================================-->
     <script src="vendor/daterangepicker/moment.min.js"></script>
     <script src="vendor/daterangepicker/daterangepicker.js"></script>
@@ -156,34 +175,17 @@
     </script>
 <!--===============================================================================================-->
     <script src="js/main.js"></script>
-<html>
-<head>
-  
-</head>
-<body>
-  <div id="my-signin2"></div>
-  <script>
-    function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-    function onFailure(error) {
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
-  </script>
+    <script type="text/javascript">
+        document.getElementById('select2-curso-container').addEventListener('DOMSubtreeModified', (element) =>{
+            localStorage.setItem('curso',document.getElementById('curso').value);                        
+        });
 
-  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-</body>
-</html>
+        if (localStorage.ano !== undefined){
+            let curso = document.getElementById('curso');
+            curso.value = localStorage.curso;
+            let textSelectedItem = curso.options[curso.selectedIndex].text;
+            document.getElementById('select2-curso-container').textContent = textSelectedItem;
+        }
+    </script>
 </body>
 </html>

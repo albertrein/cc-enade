@@ -11,16 +11,16 @@ if(!isset($_FILES['imagem']['name'])){
 	die('<h1>REFAZER -> Imagem não informada</h1>');
 }
 
-
+//die(var_dump($_POST));
 require '../Model/CadastroPerguntas.php';
-$cadastroPerguntalModel = new CadastroPerguntas();
+$cadastroPerguntalModel = new CadastroPerguntas($_POST['curso']);
 
 if($retorno = $cadastroPerguntalModel->salvarPergunta($_POST)){
 	$retorno =  mysqli_fetch_assoc($retorno)["id"];
 
 	$extensaoArquivo = explode(".",$_FILES['imagem']['name']);
 
-	move_uploaded_file($_FILES['imagem']['tmp_name'], '../imagens_questoes/'.$retorno.".".$extensaoArquivo[1]);
+	move_uploaded_file($_FILES['imagem']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].'/imagens_questoes/tads/'.$retorno.".".$extensaoArquivo[1]);
 
 	die('Salvo!');
 }

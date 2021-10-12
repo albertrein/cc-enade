@@ -6,11 +6,13 @@ require_once('DatabaseConnection/MysqlConnection.php');
 
 class Questionario extends MySqlConnection{
 	private $conn;
+	private $tableName;
 
-	function __construct(){
+	function __construct($tableName = 'questoes'){
 		parent::__construct();
+		$this->tableName = $tableName;
 		$this->conn = parent::getConnection();
-		return false;
+		return true;
 	}
 
 	function closeConnection(){
@@ -18,7 +20,7 @@ class Questionario extends MySqlConnection{
 	}
 
 	function buscaResposta($dados){
-		$sql = "SELECT resposta from questoes WHERE ano = ".$dados['ano']. " AND  nrquestao = ".$dados['nrquestao'];
+		$sql = "SELECT resposta from ".$this->tableName." WHERE ano = ".$dados['ano']. " AND  nrquestao = ".$dados['nrquestao'];
 		$resultado = $this->conn->query($sql);
 		if($resultado->num_rows == 1){
 			return $resultado;
@@ -27,7 +29,7 @@ class Questionario extends MySqlConnection{
 	}
 
 	function atualizaAcertosDaQuestao($dados){
-		$handler = $this->conn->prepare('UPDATE questoes SET acertos = acertos + 1 WHERE ano = ? AND nrquestao = ?');
+		$handler = $this->conn->prepare('UPDATE '.$this->tableName.' SET acertos = acertos + 1 WHERE ano = ? AND nrquestao = ?');
 		$handler->bind_param('ii', $dados['ano'], $dados['nrquestao']);
 		if(!$handler->execute()){
 			return false;
@@ -36,7 +38,7 @@ class Questionario extends MySqlConnection{
 	}
 
 	function atualizaErrosDaQuestao($dados){
-		$handler = $this->conn->prepare('UPDATE questoes SET erros = erros + 1 WHERE ano = ? AND nrquestao = ?');
+		$handler = $this->conn->prepare('UPDATE '.$this->tableName.' SET erros = erros + 1 WHERE ano = ? AND nrquestao = ?');
 		$handler->bind_param('ii', $dados['ano'], $dados['nrquestao']);
 		if(!$handler->execute()){
 			return false;
@@ -48,7 +50,7 @@ class Questionario extends MySqlConnection{
 		$ultimoPk = $this->getUltimoIdInserido();
 		
 		while(true){
-			$questaoAleatoria = $this->conn->query("SELECT questaopk, ano, nrquestao, duvida from questoes WHERE questaopk = ".rand(0,$ultimoPk));
+			$questaoAleatoria = $this->conn->query("SELECT questaopk, ano, nrquestao, duvida from ".$this->tableName." WHERE questaopk = ".rand(0,$ultimoPk));
 			$dados = mysqli_fetch_assoc($questaoAleatoria);
 			if($dados === NULL){
 				continue;
@@ -58,16 +60,16 @@ class Questionario extends MySqlConnection{
 	}
 
 	function getUltimoIdInserido(){
-		$lastPk = $this->conn->query("select questaopk from questoes order by questaopk DESC LIMIT 1;");
+		$lastPk = $this->conn->query("SELECT questaopk FROM ".$this->tableName." order by questaopk DESC LIMIT 1;");
 		return mysqli_fetch_assoc($lastPk)['questaopk'];
 	}
 
 	function retornaUltimoIdRegistrado(){
-		return $this->conn->query('SELECT MAX(questaopk) as id FROM questoes;');
+		return $this->conn->query('SELECT MAX(questaopk) as id FROM '.$this->tableName.';');
 	}
 
 	function buscaListaQuestoes($numeroQuestao){
-		$handler = $this->conn->prepare('SELECT questaopk, ano, nrquestao, duvida FROM questoes WHERE nrquestao = ?');
+		$handler = $this->conn->prepare('SELECT questaopk, ano, nrquestao, duvida FROM '.$this->tableName.' WHERE nrquestao = ?');
 		$handler->bind_param('i', $numeroQuestao);
 		if(!$handler->execute()){
 			return false;
@@ -76,13 +78,13 @@ class Questionario extends MySqlConnection{
 	}
 
 	function requisitarAjuda($idQuestao){
-		$sql = "UPDATE questoes SET duvida = 1 WHERE questaopk=".$idQuestao;
+		$sql = "UPDATE ".$this->tableName." SET duvida = 1 WHERE questaopk=".$idQuestao;
 		$this->conn->query($sql);
 		return true;
 	}
 
 	function buscaQuestoesEmAvaliacoes(){
-		$sql = "SELECT questaopk, ano, nrquestao, duvida FROM questoes WHERE duvida = 1";
+		$sql = "SELECT questaopk, ano, nrquestao, duvida FROM ".$this->tableName." WHERE duvida = 1";
 		$resultado = $this->conn->query($sql);
 		if($resultado->num_rows > 0){
 			return $resultado;
@@ -91,7 +93,7 @@ class Questionario extends MySqlConnection{
 	}
 
 	function atualizaQuestaoEmAvalicao($idQuestao, $duvida){
-		$sql = "UPDATE questoes SET duvida = ".$duvida." WHERE questaopk=".$idQuestao;
+		$sql = "UPDATE ".$this->tableName." SET duvida = ".$duvida." WHERE questaopk=".$idQuestao;
 		$this->conn->query($sql);
 		return true;
 	}
