@@ -8,6 +8,16 @@ CREATE TABLE questoes(
 	erros INT DEFAULT 0
 );
 
+CREATE TABLE tads(
+	questaopk INT AUTO_INCREMENT PRIMARY KEY,
+	resposta VARCHAR(20) NOT NULL,
+	ano INT NOT NULL,
+	nrquestao INT NOT NULL,
+	duvida INT(10) DEFAULT 0,
+	acertos INT DEFAULT 0,
+	erros INT DEFAULT 0
+);
+
 ALTER TABLE questoes ADD CONSTRAINT chk_resposta CHECK (resposta IN ('A' , 'B' , 'C' , 'D' , 'E'));
 
 CREATE TABLE usuarios(
