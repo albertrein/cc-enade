@@ -1,7 +1,10 @@
 <?php
 
 require '../Model/Questionario.php';
-$questionarioObj = new Questionario();
+if(!isset($objetoJsonRecebido['curso'])){
+	$objetoJsonRecebido['curso'] = "questoes";
+}
+$questionarioObj = new Questionario($objetoJsonRecebido['curso']);
 
 $questoesParaAvaliacao = $questionarioObj->buscaQuestoesEmAvaliacoes();
 

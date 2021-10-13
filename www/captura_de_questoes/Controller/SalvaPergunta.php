@@ -19,7 +19,7 @@ if($retorno = $cadastroPerguntalModel->salvarPergunta($_POST)){
 	$retorno =  mysqli_fetch_assoc($retorno)["id"];
 
 	$extensaoArquivo = explode(".",$_FILES['imagem']['name']);
-
+	$extensaoArquivo[1] = strtolower($extensaoArquivo[1]);
 	move_uploaded_file($_FILES['imagem']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].'/imagens_questoes/tads/'.$retorno.".".$extensaoArquivo[1]);
 
 	die('Salvo!');

@@ -6,7 +6,10 @@ if(!isset($objetoJsonRecebido['numeroquestao'])){
 }
 
 require '../Model/Questionario.php';
-$questionarioObj = new Questionario();
+if(!isset($objetoJsonRecebido['curso'])){
+	$objetoJsonRecebido['curso'] = "questoes";
+} 
+$questionarioObj = new Questionario($objetoJsonRecebido['curso']);
 
 $resultadoQuery = $questionarioObj->buscaListaQuestoes($objetoJsonRecebido['numeroquestao']);
 if($resultadoQuery->num_rows == 0 or $resultadoQuery == false){

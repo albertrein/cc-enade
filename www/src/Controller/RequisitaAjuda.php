@@ -6,7 +6,10 @@ if(!isset($objetoJsonRecebido['numeroquestao'])){
 }
 
 require '../Model/Questionario.php';
-$questionarioObj = new Questionario();
+if(!isset($objetoJsonRecebido['curso'])){
+	$objetoJsonRecebido['curso'] = "questoes";
+}
+$questionarioObj = new Questionario($objetoJsonRecebido['curso']);
 
 $questionarioObj->requisitarAjuda($objetoJsonRecebido['numeroquestao']);
 

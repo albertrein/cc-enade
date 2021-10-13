@@ -1,12 +1,11 @@
 <?php
 $objetoJsonRecebido = json_decode($_POST['json'], true);
 
-/*TODO: regex aqui validar entrada*/
-
-
-
 require '../Model/Questionario.php';
-$questionario = new Questionario();
+if(!isset($objetoJsonRecebido['curso'])){
+	$objetoJsonRecebido['curso'] = "questoes";
+}
+$questionario = new Questionario($objetoJsonRecebido['curso']);
 
 $retorno = $questionario->buscaResposta($objetoJsonRecebido);
 

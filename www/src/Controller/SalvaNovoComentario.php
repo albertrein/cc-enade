@@ -25,7 +25,10 @@ if($comentarioObj->insereNovoComentario($objetoJsonRecebido) === false){
 
 if(isset($objetoJsonRecebido['duvida'])){
 	require '../Model/Questionario.php';
-	$questionarioObj = new Questionario();
+	if(!isset($objetoJsonRecebido['curso'])){
+		$objetoJsonRecebido['curso'] = "questoes";
+	}
+	$questionarioObj = new Questionario($objetoJsonRecebido['curso']);
 	$questionarioObj->atualizaQuestaoEmAvalicao($objetoJsonRecebido['idquestao'], $objetoJsonRecebido['duvida']);
 }
 

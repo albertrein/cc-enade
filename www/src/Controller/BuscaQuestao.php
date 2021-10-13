@@ -1,7 +1,10 @@
 <?php
 
 require '../Model/Questionario.php';
-$questionario = new Questionario();
+if(!isset($objetoJsonRecebido['curso'])){
+	$objetoJsonRecebido['curso'] = "questoes";
+} 
+$questionario = new Questionario($objetoJsonRecebido['curso']);
 
 $questaoAleatoria = $questionario->buscaQuestao();
 
