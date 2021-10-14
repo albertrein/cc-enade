@@ -24,7 +24,8 @@ class BuscaQuestoes{
         }
         let data = new FormData();
         data.append( "json", JSON.stringify({
-            "numeroquestao" : elementoQuestaoBusca.value
+            "numeroquestao" : elementoQuestaoBusca.value,
+            "curso" : this.getCurso()
         }));
 
         fetch("../src/Controller/BuscaListaQuestoes.php",
@@ -76,5 +77,11 @@ class BuscaQuestoes{
         this.visibilidadeHandler.mostrarQuestionario();
         this.questoesObj.visualizarQuestao(questaopk, ano, nrquestao, duvida);
     }
-
+    
+    getCurso(){
+        if(localStorage.curso !== undefined){
+            return localStorage.curso;
+        }
+        return "";
+    }
 }

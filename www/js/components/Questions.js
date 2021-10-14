@@ -95,7 +95,8 @@ class Questions{
             "respostaUsuario": this.getRespostaDoUsuario(),
             "emailUsuario": this.getUserEmail(),
             "ano" : sessionStorage.questaoAtualAno,
-            "nrquestao" : sessionStorage.questaoAtualNumero
+            "nrquestao" : sessionStorage.questaoAtualNumero,
+            "curso" : this.getCurso()
         };
 
         let data = new FormData();
@@ -119,7 +120,13 @@ class Questions{
     }
 
     buscarQuestao(){
-        fetch("../src/Controller/BuscaQuestao.php").then((response) => {
+        let data = new FormData();        
+        data.append("json", JSON.stringify({'curso': this.getCurso()}));
+
+        fetch("../src/Controller/BuscaQuestao.php", {
+            method: "POST",
+            body: data
+        }).then((response) => {
             response.json().then(data => {
                 if(data.questaopk !== null && data.questaopk !== "" ){
                     this.setQuestaoAtual(data.questaopk, data.ano, data.nrquestao, data.duvida);
@@ -194,7 +201,7 @@ class Questions{
             return false;
         }
         let data = new FormData();        
-        data.append( "json", JSON.stringify( {'numeroquestao': sessionStorage.questaoAtualId} ));
+        data.append( "json", JSON.stringify( {'numeroquestao': sessionStorage.questaoAtualId, 'curso': this.getCurso()} ));
 
         fetch("../src/Controller/RequisitaAjuda.php", { method: "POST", body: data });
         return true;
@@ -202,6 +209,13 @@ class Questions{
 
     salvaQuestaoAtual(){
         this.listaQuestoesVisualizadas.push(this.getQuestaoAtual());
+    }
+
+    getCurso(){
+        if(localStorage.curso !== undefined){
+            return localStorage.curso;
+        }
+        return "";
     }
 
 }

@@ -64,8 +64,11 @@ class Menu{
 	mostrarNotificacoesProfessor(){
 		document.getElementById('numero_requisicoes').textContent = "";
 		document.querySelectorAll('.dropdown-item.d-flex.align-items-center').forEach(e => e.remove());
-		
-		fetch("../src/Controller/BuscarQuestoesEmAvaliacao.php").then(response => {
+
+		let data = new FormData();        
+        data.append( "json", JSON.stringify( {'curso': this.getCurso()} ));
+
+		fetch("../src/Controller/BuscarQuestoesEmAvaliacao.php", { method: "POST", body: data }).then(response => {
 			if(response.status == 204){
 				return false;
 			}
@@ -94,4 +97,10 @@ class Menu{
         this.questoesObj.visualizarQuestao(questaopk, ano, nrquestao, duvida);
 	}
 
+	getCurso(){
+        if(localStorage.curso !== undefined){
+            return localStorage.curso;
+        }
+        return "";
+    }
 }

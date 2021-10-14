@@ -6,7 +6,7 @@ if(!isset($objetoJsonRecebido['numeroquestao'])){
 }
 
 require '../Model/Questionario.php';
-if(!isset($objetoJsonRecebido['curso'])){
+if(!isset($objetoJsonRecebido['curso']) || $objetoJsonRecebido['curso'] === ""){
 	$objetoJsonRecebido['curso'] = "questoes";
 } 
 $questionarioObj = new Questionario($objetoJsonRecebido['curso']);

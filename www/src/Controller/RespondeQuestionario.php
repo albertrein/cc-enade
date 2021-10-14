@@ -2,7 +2,7 @@
 $objetoJsonRecebido = json_decode($_POST['json'], true);
 
 require '../Model/Questionario.php';
-if(!isset($objetoJsonRecebido['curso'])){
+if(!isset($objetoJsonRecebido['curso']) || $objetoJsonRecebido['curso'] === ""){
 	$objetoJsonRecebido['curso'] = "questoes";
 }
 $questionario = new Questionario($objetoJsonRecebido['curso']);

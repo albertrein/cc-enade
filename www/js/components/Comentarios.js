@@ -138,7 +138,8 @@ class Comentarios{
     	let dadosParaEnviar = {
             "idquestao": sessionStorage.questaoAtualId,
             "emailUsuario": localStorage.emailusuario,
-            "novaMensagem": this.getNovaMensagem()
+            "novaMensagem": this.getNovaMensagem(),
+            "curso": this.getCurso()
         };
         if(this.isDuvida() && this.isProfessor()){
             dadosParaEnviar["duvida"] = this.getDuvidaRespondida();
@@ -157,5 +158,12 @@ class Comentarios{
             this.limpaCampoComentario();
             this.limpaCampoDuvida();
         });
+    }
+
+    getCurso(){
+        if(localStorage.curso !== undefined){
+            return localStorage.curso;
+        }
+        return "";
     }
 }
