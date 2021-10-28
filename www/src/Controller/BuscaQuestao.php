@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 $objetoJsonRecebido = json_decode($_POST['json'], true);
 
 require '../Model/Questionario.php';

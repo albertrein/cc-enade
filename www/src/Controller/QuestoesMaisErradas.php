@@ -1,20 +1,23 @@
 <?php
-error_reporting(0);
+
 require '../Model/Questionario.php';
+error_reporting(0);
 if(!isset($objetoJsonRecebido['curso']) || $objetoJsonRecebido['curso'] === ""){
-	$objetoJsonRecebido['curso'] = "questoes";
+	$objetoJsonRecebido['curso'] = "cc";
 }
+
 $questionarioObj = new Questionario($objetoJsonRecebido['curso']);
 
-$questoesParaAvaliacao = $questionarioObj->buscaQuestoesEmAvaliacoes();
+$response = $questionarioObj->retornaQuestoesMaisErradas();
 
-if(!$questoesParaAvaliacao){
+if($response === false){
 	header('HTTP/1.0 204 Not Found', true, 204);
 	exit();
 }
 
+header("HTTP/1.1 200 OK");
 $arrayDadosObtidos = array();
-while($linhaDados = mysqli_fetch_assoc($questoesParaAvaliacao)){
+while($linhaDados = mysqli_fetch_assoc($response)){
 	$arrayDadosObtidos[] = $linhaDados;
 }
 

@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 $objetoJsonRecebido = json_decode($_POST['json'], true);
 if(!isset($objetoJsonRecebido['idquestao'])){
 	die(NULL);

@@ -27,15 +27,15 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
-function criaRankingBar(labelsGrafico, pontuacaoGrafico){
-  let ctx = document.getElementById("myBarChart");
+function criaGraficoBarrra(labelsGrafico, pontuacaoGrafico, idCanvasReceptor = "myBarChart", labelGrafico = ""){
+  let ctx = document.getElementById(idCanvasReceptor);
 
   let myBarChart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: labelsGrafico,
       datasets: [{
-        label: "Revenue",
+        label: labelGrafico,
         backgroundColor: "#4e73df",
         hoverBackgroundColor: "#2e59d9",
         borderColor: "#4e73df",
@@ -69,8 +69,8 @@ function criaRankingBar(labelsGrafico, pontuacaoGrafico){
         yAxes: [{
           ticks: {
             min: 0,
-            max: pontuacaoGrafico[0],
-            maxTicksLimit: 5,
+            max: (parseInt(pontuacaoGrafico[0]) > 4)? parseInt(pontuacaoGrafico[0]): 5,
+            maxTicksLimit: labelsGrafico.length,
             padding: 10,
             // Include a dollar sign in the ticks
             callback: function(value, index, values) {
@@ -103,8 +103,9 @@ function criaRankingBar(labelsGrafico, pontuacaoGrafico){
         caretPadding: 10,
         callbacks: {
           label: function(tooltipItem, chart) {
+            console.log(tooltipItem, chart)
             var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-            return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+            return datasetLabel + ': ' + tooltipItem.yLabel;
           }
         }
       },

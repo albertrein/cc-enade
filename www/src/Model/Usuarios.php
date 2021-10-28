@@ -27,7 +27,7 @@ class Usuarios extends MySqlConnection{
 	}
 
 	function findUsuarioPeloEmail($email){
-		$sql = "SELECT nome, isprofessor FROM usuarios WHERE email = '".$email."';";
+		$sql = "SELECT nome, isprofessor, curso FROM usuarios WHERE email = '".$email."';";
 		$resultado = $this->conn->query($sql);
 		
 		if(mysqli_num_rows($resultado) === 1){
@@ -36,9 +36,9 @@ class Usuarios extends MySqlConnection{
 		return false;
 	}
 
-	function insereNovoUsuario($nome, $email, $isprofessor){
-		$handler = $this->conn->prepare('INSERT INTO usuarios(nome, email, isprofessor) VALUES (?, ?, ?)');
-		$handler->bind_param('ssi', $nome, $email, $isprofessor);
+	function insereNovoUsuario($nome, $email, $isprofessor, $cursoDoUsuario){
+		$handler = $this->conn->prepare('INSERT INTO usuarios(nome, email, isprofessor, curso) VALUES (?, ?, ?, ?)');
+		$handler->bind_param('ssis', $nome, $email, $isprofessor, $cursoDoUsuario);
 		return $handler->execute();
 	}
 

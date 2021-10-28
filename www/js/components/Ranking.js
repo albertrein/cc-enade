@@ -26,7 +26,7 @@ class Ranking{
                     labelsGrafico[i] = jsonData[i].nomeusuario;
                     pontuacaoGrafico[i] = jsonData[i].pontuacaousuario;
                 }
-                criaRankingBar(labelsGrafico, pontuacaoGrafico);
+                criaGraficoBarrra(labelsGrafico, pontuacaoGrafico, "canvasRanking", "Pontuação");
             });
         })
     }

@@ -60,7 +60,7 @@ class BuscaQuestoes{
             terceiraColuna = document.createElement('td');
             imagemQuestao = document.createElement('img');
             imagemQuestao.onclick = () => {this.showQuestao(dados[i].questaopk, dados[i].ano, dados[i].nrquestao, dados[i].duvida)};
-            imagemQuestao.src = "imagens_questoes/"+dados[i].questaopk+".png";
+            imagemQuestao.src = "imagens_questoes/"+this.getCurso()+"/"+dados[i].questaopk+".png";
             primeiraColuna.append(imagemQuestao);
             segundaColuna.textContent = dados[i].nrquestao;
             terceiraColuna.textContent = dados[i].ano;
@@ -82,6 +82,6 @@ class BuscaQuestoes{
         if(localStorage.curso !== undefined){
             return localStorage.curso;
         }
-        return "";
+        return "cc";
     }
 }

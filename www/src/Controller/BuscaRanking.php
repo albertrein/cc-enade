@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 require '../Model/Usuarios.php';
 $usuarioObj = new Usuarios();
 

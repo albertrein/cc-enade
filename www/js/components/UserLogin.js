@@ -21,7 +21,7 @@ class UserLogin{
         }).then((response) => {
             if(response.ok){
                 response.json().then(data => {
-                    this.usuarioReconhecido(data.nome, emailUsuario, data.isprofessor);
+                    this.usuarioReconhecido(data.nome, emailUsuario, data.isprofessor, data.curso);
                 });
             }else{
                 this.loginErrorMessage();
@@ -29,10 +29,11 @@ class UserLogin{
         })
     }
 
-    usuarioReconhecido(nomeUsuario, emailUsuario, isProfessor){
+    usuarioReconhecido(nomeUsuario, emailUsuario, isProfessor, cursoDoUsuario){
         localStorage.setItem('nomeusuario', nomeUsuario);
         localStorage.setItem('emailusuario', emailUsuario);
         localStorage.setItem('isprofessor', isProfessor);
+        localStorage.setItem('curso', cursoDoUsuario);
         this.visibilidadeHandler.usuarioLogado();
         
         return false;
@@ -51,5 +52,9 @@ class UserLogin{
     loginErrorMessage(){
         document.getElementById('login_email').style.borderColor = 'red';
         return false;
+    }
+
+    insereCursoPadrao(){
+        localStorage.setItem('curso', 'cc');
     }
 }

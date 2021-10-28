@@ -10,21 +10,30 @@ class UserRegister{
         let email = document.getElementById('email').value;
         let tipoAluno = document.getElementById('tipo_aluno');
         let tipoProfessor = document.getElementById('tipo_professor');
+        let cursoDoUsuario = document.getElementById('curso');
 
-        if(this.validaCampos(nome, email, tipoAluno, tipoProfessor)){
-            this.insereUsuario(nome, email, (tipoAluno.checked === true) ? 0:1);
+        if(this.validaCampos(nome, email, tipoAluno, tipoProfessor, cursoDoUsuario)){
+            this.insereUsuario(nome, email, (tipoAluno.checked === true) ? 0:1, cursoDoUsuario.value);
             return true;
         }
         //mostra mensagem de erro
         return false;
     }
 
-    validaCampos(nome, email, tipoAluno, tipoProfessor){
+    validaCampos(nome, email, tipoAluno, tipoProfessor, cursoDoUsuario){
         if(tipoProfessor.checked == false && tipoAluno.checked == false){
             this.showErrorMensagemUsuarioCadastro();
             return false;
         }
         if(nome == "" || email == ""){
+            this.showErrorMensagemUsuarioCadastro();
+            return false;
+        }
+        if(email.indexOf('@rede.ulbra.br') < 1){
+            this.showErrorMensagemUsuarioCadastro();
+            return false;
+        }
+        if(cursoDoUsuario.value == ""){
             this.showErrorMensagemUsuarioCadastro();
             return false;
         }
@@ -39,20 +48,22 @@ class UserRegister{
         }
     }
 
-    usuarioReconhecido(nomeUsuario, emailUsuario, isProfessor){
+    usuarioReconhecido(nomeUsuario, emailUsuario, isProfessor, cursoDoUsuario){
         localStorage.setItem('nomeusuario', nomeUsuario);
         localStorage.setItem('emailusuario', emailUsuario);
         localStorage.setItem('isprofessor', isProfessor);
+        localStorage.setItem('curso', cursoDoUsuario);
         this.visibilidadeHandler.usuarioLogado();
         return true;
     }
 
-    insereUsuario(nome, email, isProfessor){
+    insereUsuario(nome, email, isProfessor, cursoDoUsuario){
         let data = new FormData();
         data.append( "json", JSON.stringify({
             "nomeUsuario": nome,
             "emailUsuario": email,
-            "isProfessor": isProfessor
+            "isProfessor": isProfessor,
+            "cursoDoUsuario": cursoDoUsuario 
         }));
 
         fetch('../src/Controller/NovoUsuario.php', {
@@ -60,7 +71,7 @@ class UserRegister{
             body: data
         }).then((response) => {
             if(response.status === 200){
-                this.usuarioReconhecido(nome, email, isProfessor);
+                this.usuarioReconhecido(nome, email, isProfessor, cursoDoUsuario);
                 this.hideErrorMensagemUsuarioCadastro();
             }else{
                 this.showErrorMensagemUsuarioCadastro();

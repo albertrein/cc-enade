@@ -16,6 +16,7 @@ class Menu{
 	logarUsuario(){
 		if(localStorage.isprofessor == 1){
 			this.mostrarNotificacoesProfessor();
+			this.showRelatorioProfessor();
 			this.showNotification();
 		}else{
 			this.hideNotification();
@@ -29,10 +30,12 @@ class Menu{
 	usuarioDeslogado(){
 		this.showLogar();
 		this.hideDeslogar();
+		this.hideRelatorioProfessor();
 		this.hideNotification();
 		localStorage.setItem('nomeusuario', "");
         localStorage.setItem('emailusuario', "");
         localStorage.setItem('isprofessor', 0);
+        localStorage.setItem('curso', "cc");
 		document.getElementById(this.idNomeUsuario).textContent = "Visitante";
 		return false;
 	}
@@ -97,6 +100,13 @@ class Menu{
         this.questoesObj.visualizarQuestao(questaopk, ano, nrquestao, duvida);
 	}
 
+	showRelatorioProfessor(){
+		document.getElementById('relatorioQuestoes').style.display = "block";
+	}
+	
+	hideRelatorioProfessor(){
+		document.getElementById('relatorioQuestoes').style.display = "none";
+	}
 	getCurso(){
         if(localStorage.curso !== undefined){
             return localStorage.curso;

@@ -12,9 +12,9 @@ class Questions{
         this.comentarios.hide();
     }
 
-    show(){
+    show(carregarNovaQuestao = false){
         this.visibilidade = true;
-        if(!this.isQuestaoAtiva()){
+        if(!this.isQuestaoAtiva() || carregarNovaQuestao){
             this.buscarQuestao();
         }
         document.getElementById(this.componentSelector).style.display = 'block';
@@ -140,7 +140,7 @@ class Questions{
 
     insereDadosQuestao(){
         document.getElementById('questao_titulo').textContent = "Questão "+sessionStorage.questaoAtualNumero+" - "+sessionStorage.questaoAtualAno;
-        document.getElementById('questao_imagem').src = "../imagens_questoes/"+sessionStorage.questaoAtualId+".png";
+        document.getElementById('questao_imagem').src = "../imagens_questoes/"+this.getCurso()+"/"+sessionStorage.questaoAtualId+".png";
     }
 
     getUserEmail(){
@@ -215,7 +215,7 @@ class Questions{
         if(localStorage.curso !== undefined){
             return localStorage.curso;
         }
-        return "";
+        return "cc";
     }
 
 }

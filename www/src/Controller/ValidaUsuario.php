@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 $objetoJsonRecebido = json_decode($_POST['json'], true);
 if(!isset($objetoJsonRecebido['emailUsuario'])){
 	header('HTTP/1.0 404 Not Found', true, 404);

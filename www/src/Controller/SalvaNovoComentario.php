@@ -1,5 +1,5 @@
 <?php 
-
+error_reporting(0);
 $objetoJsonRecebido = json_decode($_POST['json'], true);
 if(!isset($objetoJsonRecebido['idquestao']) || !isset($objetoJsonRecebido['emailUsuario']) || !isset($objetoJsonRecebido['novaMensagem']) || empty($objetoJsonRecebido['novaMensagem']) || ctype_space($objetoJsonRecebido['novaMensagem'])){
 	header('HTTP/1.0 204 Not Found', true, 204);

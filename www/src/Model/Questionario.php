@@ -98,6 +98,20 @@ class Questionario extends MySqlConnection{
 		return true;
 	}
 
+	function retornaQuestoesMaisErradas(){
+		$sql = 'SELECT count(erros) as qtderros FROM '.$this->tableName.' where erros != 0';
+		$qtdErros = $this->conn->query($sql);		
+		if(!$qtdErros || $qtdErros->num_rows == 0){
+			return false;
+		}
+		$qtdErros = mysqli_fetch_assoc($qtdErros);
+		$handler = $this->conn->prepare('SELECT nrquestao, ano, erros FROM '.$this->tableName.' ORDER BY erros DESC LIMIT '.$qtdErros["qtderros"]);
+		if(!$handler->execute()){
+			return false;
+		}
+		return $handler->get_result();
+	}
+
 }
 
 /*

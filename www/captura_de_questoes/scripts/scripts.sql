@@ -8,7 +8,7 @@ CREATE TABLE questoes(
 	erros INT DEFAULT 0
 );
 
-CREATE TABLE tads(
+CREATE TABLE cc(
 	questaopk INT AUTO_INCREMENT PRIMARY KEY,
 	resposta VARCHAR(20) NOT NULL,
 	ano INT NOT NULL,
@@ -25,7 +25,8 @@ CREATE TABLE usuarios(
 	nome VARCHAR(60) NOT NULL UNIQUE,
 	email VARCHAR(60) NOT NULL UNIQUE,
 	isprofessor INT(8),
-	pontuacao INT DEFAULT 0
+	pontuacao INT DEFAULT 0,
+	curso VARCHAR(60)
 );
 
 CREATE TABLE comentarios(

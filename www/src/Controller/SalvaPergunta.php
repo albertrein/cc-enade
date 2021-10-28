@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 echo "<center>";
 echo "<h4>Dados Recebidos:<h4><br>";
 echo "<h5>".$_POST["resposta"]."</h5><br/>";

@@ -1,79 +1,71 @@
 class VisibilidadeHandler{
 	constructor(){
+		this.componentes = [];
 		this.login = null;
 		this.cadastro = null;
 		this.questoes = null;
 		this.ranking = null;
 		this.inicio = null;
 		this.menu = null;
+		this.relatorio = null;
 	}
 
-	setComponents(login, cadastro, questoes, ranking, inicio, menu, buscarQuestoes){
-		this.login = login;
-		this.cadastro = cadastro;
-		this.questoes = questoes;
-		this.ranking = ranking;
-		this.inicio = inicio;
-		this.menu = menu;
-		this.buscarQuestoes = buscarQuestoes;
+	setComponents(login, cadastro, questoes, ranking, inicio, menu, buscarQuestoes, relatorio){
+		this.componentes["login"] = login;
+		this.componentes["cadastro"] = cadastro;
+		this.componentes["questoes"] = questoes;
+		this.componentes["ranking"] = ranking;
+		this.componentes["inicio"] = inicio;
+		this.componentes["menu"] = menu;
+		this.componentes["buscarQuestoes"] = buscarQuestoes;
+		this.componentes["relatorio"] = relatorio;
 	}
 
 	usuarioLogado(){
-		this.mostrarQuestionario();
-		this.menu.logarUsuario();
+		this.mostrarQuestionario(true);
+		this.componentes.menu.logarUsuario();
 	}
 
-	mostrarLogin(){
-		this.login.show();
-		this.cadastro.hide();
-		this.questoes.hide();
-		this.ranking.hide();
-		this.inicio.hide();
-		this.buscarQuestoes.hide();
+	async mostrarLogin(){
+		await this.hideComponents();
+		this.componentes["login"].show();
 	}
 
-	mostrarCadastro(){
-		this.cadastro.show();
-		this.login.hide();
-		this.questoes.hide();
-		this.ranking.hide();
-		this.inicio.hide();
-		this.buscarQuestoes.hide();
+	async mostrarCadastro(){
+		await this.hideComponents();
+		this.componentes["cadastro"].show();
 	}
 
-	mostrarQuestionario(){
-		this.questoes.show();
-		this.login.hide();
-		this.cadastro.hide();
-		this.ranking.hide();
-		this.inicio.hide();
-		this.buscarQuestoes.hide();
+	async mostrarQuestionario(carregarNovaQuestao = false){
+		await this.hideComponents();
+		this.componentes["questoes"].show(carregarNovaQuestao);
 	}
 
-	mostrarRanking(){
-		this.ranking.show();
-		this.questoes.hide();
-		this.login.hide();
-		this.cadastro.hide();
-		this.inicio.hide();
-		this.buscarQuestoes.hide();
+	async mostrarRanking(){
+		await this.hideComponents();
+		this.componentes["ranking"].show();
 	}
 
-	mostrarInicio(){
-		this.inicio.show();
-		this.ranking.hide();
-		this.questoes.hide();
-		this.login.hide();
-		this.cadastro.hide();
-		this.buscarQuestoes.hide();
+	async mostrarInicio(){
+		await this.hideComponents();
+		this.componentes["inicio"].show();
 	}
 
-	mostrarListaQuestoes(){
-		this.buscarQuestoes.show();
-		this.inicio.hide();
-		this.ranking.hide();
-		this.questoes.hide();
-		this.login.hide();
-		this.cadastro.hide();
+	async mostrarListaQuestoes(){
+		await this.hideComponents();
+		this.componentes["buscarQuestoes"].show();
+	}
+
+	async mostrarRelatorio(){
+		await this.hideComponents();
+		this.componentes["relatorio"].show();
+	}
+
+	hideComponents = async () => {
+		return Promise.all(Object.entries(this.componentes).map(componentObject => {
+			try{
+				componentObject[1].hide();
+			}catch(error){}			
+		}))
 	}
 }
