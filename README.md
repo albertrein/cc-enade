@@ -1,9 +1,9 @@
-#CC-Enade
+# CC-Enade
 Web site para treinamento e controle de questões do Enade.
 
 ![alt text](https://github.com/albertrein/cc-enade/blob/main/www/img/cc-enade.gif?raw=true)
 
-##Funcionalidades
+## Funcionalidades
 - Cadastro de questões;
 - Busca de questões separadas por curso;
 - Ranking TOP 5 alunos;
@@ -11,13 +11,14 @@ Web site para treinamento e controle de questões do Enade.
 - Comentários em questões;
 - Solicitação de ajuda do professor.
 
-##Stack
+## Stack
 Back-end: PHP
 Front: HTML 5, CSS3, BOOTSTRAP, JavaScript
 BD: MySql
 Gerenciamento: Docker, Docker-compose
 
-##Rodar local
+## Rodar local
 1- Clone repositório;
+
 2- execute: docker-compose up
 aplicativo estará sendo executado na porta 3002.
