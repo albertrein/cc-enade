@@ -1,7 +1,7 @@
 #CC-Enade
 Web site para treinamento e controle de questões do Enade.
 
-
+![alt text](https://github.com/albertrein/cc-enade/blob/main/www/img/cc-enade.gif?raw=true)
 
 ##Funcionalidades
 - Cadastro de questões;
