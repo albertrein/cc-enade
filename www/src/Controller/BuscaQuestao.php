@@ -12,7 +12,10 @@ $questaoAleatoria = $questionario->buscaQuestao();
 
 if($questaoAleatoria && $questaoAleatoria["questaopk"] !== ""){
 	echo json_encode($questaoAleatoria);
+	$questionario->closeConnection();
 	exit();
 }
 
 echo json_encode(array("resposta" => "erro"));
+
+$questionario->closeConnection();

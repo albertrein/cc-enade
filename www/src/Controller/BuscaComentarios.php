@@ -25,5 +25,6 @@ while($dado = mysqli_fetch_assoc($dadosObtidos)){
 }
 
 echo json_encode($mensagens);
+$comentarioObj->closeConnection();
 exit();
 

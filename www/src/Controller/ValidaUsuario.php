@@ -17,4 +17,5 @@ if($dadosObtidos === false){
 
 header("HTTP/1.1 200 OK");
 echo json_encode($dadosObtidos);
+$usuarioObj->closeConnection();
 die(NULL);

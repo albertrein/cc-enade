@@ -12,6 +12,7 @@ $response = $questionarioObj->retornaQuestoesMaisErradas();
 
 if($response === false){
 	header('HTTP/1.0 204 Not Found', true, 204);
+	$questionarioObj->closeConnection();
 	exit();
 }
 

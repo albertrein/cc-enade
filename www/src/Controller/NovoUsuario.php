@@ -23,9 +23,11 @@ if($dadosObtidos === false){
 	//adiciona usuario
 	if($usuarioObj->insereNovoUsuario($objetoJsonRecebido['nomeUsuario'], $objetoJsonRecebido['emailUsuario'], $objetoJsonRecebido['isProfessor'], $objetoJsonRecebido['cursoDoUsuario'])){
 		header("HTTP/1.1 200 OK");
+		$usuarioObj->closeConnection();
 		die(NULL);
 	}
 }
 
 header('HTTP/1.0 204 Not Found', true, 204);
+$usuarioObj->closeConnection();
 die("#2");

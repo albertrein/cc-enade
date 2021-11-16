@@ -14,6 +14,7 @@ $questionarioObj = new Questionario($objetoJsonRecebido['curso']);
 $resultadoQuery = $questionarioObj->buscaListaQuestoes($objetoJsonRecebido['numeroquestao']);
 if($resultadoQuery->num_rows == 0 or $resultadoQuery == false){
 	header('HTTP/1.0 204 Not Found', true, 204);
+	$questionarioObj->closeConnection();
 	die(NULL);
 }
 

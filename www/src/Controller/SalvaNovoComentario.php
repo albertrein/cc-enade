@@ -15,11 +15,15 @@ $pkUsuario = $usuarioObj->retornaPkByUserEmail($objetoJsonRecebido['emailUsuario
 $objetoJsonRecebido['usuariofk'] = $pkUsuario['usuariopk'];
 if($objetoJsonRecebido['usuariofk'] === NULL){
 	header('HTTP/1.0 204 Not Found', true, 204);
+	$usuarioObj->closeConnection();
+	$comentarioObj->closeConnection();
 	die(NULL);
 }
 
 if($comentarioObj->insereNovoComentario($objetoJsonRecebido) === false){
 	header('HTTP/1.0 204 Not Found', true, 204);
+	$usuarioObj->closeConnection();
+	$comentarioObj->closeConnection();
 	die(NULL);
 }
 
@@ -30,7 +34,10 @@ if(isset($objetoJsonRecebido['duvida'])){
 	}
 	$questionarioObj = new Questionario($objetoJsonRecebido['curso']);
 	$questionarioObj->atualizaQuestaoEmAvalicao($objetoJsonRecebido['idquestao'], $objetoJsonRecebido['duvida']);
+	$questionarioObj->closeConnection();
 }
 
 header('HTTP/1.0 200', true, 200);
+$usuarioObj->closeConnection();
+$comentarioObj->closeConnection();
 exit();

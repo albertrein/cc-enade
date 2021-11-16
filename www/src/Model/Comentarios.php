@@ -13,6 +13,10 @@ class Comentarios extends MySqlConnection{
 		return false;
 	}
 
+	function closeConnection(){
+		mysqli_close($this->conn);
+	}
+
 	function buscaComentarios($idQuestao){
 		$sql = "SELECT c.mensagem, u.nome AS nomeUsuario FROM comentarios c LEFT JOIN usuarios u ON u.usuariopk=c.usuariofk WHERE questaofk =".$idQuestao." ORDER BY date(data) ASC, hora ASC";
 		$resultado = $this->conn->query($sql);

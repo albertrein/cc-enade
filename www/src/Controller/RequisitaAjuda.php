@@ -12,5 +12,5 @@ if(!isset($objetoJsonRecebido['curso']) || $objetoJsonRecebido['curso'] === ""){
 $questionarioObj = new Questionario($objetoJsonRecebido['curso']);
 
 $questionarioObj->requisitarAjuda($objetoJsonRecebido['numeroquestao']);
-
+$questionarioObj->closeConnection();
 exit();

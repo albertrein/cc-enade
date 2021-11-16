@@ -21,6 +21,7 @@ if($resposta['resposta'] === strtoupper($objetoJsonRecebido['respostaUsuario']))
 		require '../Model/Usuarios.php';
 		$usuarioObj = new Usuarios();
 		$usuarioObj->atualizaPontuacaoUsuario($objetoJsonRecebido['emailUsuario']);
+		$usuarioObj->closeConnection();
 	}
 	$questionario->atualizaAcertosDaQuestao($objetoJsonRecebido);
 }else{
@@ -28,4 +29,5 @@ if($resposta['resposta'] === strtoupper($objetoJsonRecebido['respostaUsuario']))
 }
 
 echo json_encode($resposta);
+$questionario->closeConnection();
 exit();
